@@ -1,6 +1,7 @@
 package com.chan.config;
 
 import com.chan.shiro.realms.UserRealm;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -55,6 +56,13 @@ public class ShiroConfig {
     @Bean
     public Realm getRealm(){
         UserRealm userRealm = new UserRealm();
+        //修改凭证校验匹配器
+        HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
+        //设置加密算法为MD5
+        credentialsMatcher.setHashAlgorithmName("MD5");
+        //设置散列次数
+        credentialsMatcher.setHashIterations(1024);
+        userRealm.setCredentialsMatcher(credentialsMatcher);
         return userRealm;
     }
 }
