@@ -11,4 +11,41 @@
         where username = #{username}
     </select>
 
+    <resultMap id="userMap" type="User">
+        <id column="uid" property="id"/>
+        <result column="username" property="username"/>
+        <!--角色信息-->
+        <collection property="roles" javaType="list" ofType="Role">
+            <id column="id" property="id"/>
+            <result column="rname" property="name"/>
+        </collection>
+    </resultMap>
+
+    <select id="findRolesByUserName" parameterType="String" resultMap="userMap">
+        SELECT
+            u.id uid,
+            u.username,
+            r.id,
+            r.NAME rname
+        FROM
+            USER u
+                LEFT JOIN user_role ur ON u.id = ur.user_id
+                LEFT JOIN role r ON ur.role_id = r.id
+        WHERE
+            u.username = #{username}
+    </select>
+
+    <select id="findPermsByRoleId" parameterType="String" resultType="Perms">
+        SELECT
+            p.id,
+            p.NAME,
+            p.url,
+            r.NAME
+        FROM
+            role r
+                LEFT JOIN role_permission rp ON r.id = rp.role_id
+                LEFT JOIN permission p ON rp.permission_id = p.id
+        WHERE
+            r.id = #{id}
+    </select>
 </mapper>

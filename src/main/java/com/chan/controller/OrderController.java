@@ -13,7 +13,7 @@ public class OrderController {
 
     @RequestMapping("save")
     //@RequiresRoles(value = {"admin","user"})//注解方式 同时具有
-    @RequiresPermissions("user:update:01")//用来判断权限字符串
+    @RequiresPermissions("user:save:01")//用来判断权限字符串
     public String save(){
         System.out.println("进入方法");
 //        //获取主体对象

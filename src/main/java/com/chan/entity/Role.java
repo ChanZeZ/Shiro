@@ -5,19 +5,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class Role implements Serializable {
     private String id;
-    private String userid;
-    private String username;
-    private String password;
-    private String salt;
+    private String name;
 
-    //定义角色集合
-    private List<Role> roles;
+    //定义权限的集合
+    private List<Perms> perms;
 }

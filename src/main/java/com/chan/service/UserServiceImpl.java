@@ -2,11 +2,15 @@ package com.chan.service;
 
 import com.chan.Utils.SaltUtils;
 import com.chan.dao.UserDAO;
+import com.chan.entity.Perms;
+import com.chan.entity.Role;
 import com.chan.entity.User;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -34,5 +38,15 @@ public class UserServiceImpl implements UserService{
     @Override
     public User findByUserName(String username) {
         return userDAO.findByUserName(username);
+    }
+
+    @Override
+    public User findRolesByUserName(String username) {
+        return userDAO.findRolesByUserName(username);
+    }
+
+    @Override
+    public List<Perms> findPermsByRoleId(String id) {
+        return userDAO.findPermsByRoleId(id);
     }
 }
